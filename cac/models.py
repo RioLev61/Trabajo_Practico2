@@ -82,8 +82,11 @@ class Proyecto(models.Model):
 class Comentario(models.Model):
     nombrec = models.CharField(max_length=50,verbose_name='NombreC')
     comentarios = models.CharField(max_length=250,verbose_name='Comentarios')
-    fechac = models.DateField(auto_now=True,verbose_name='FechaC')
+    fechac = models.DateField(verbose_name='FechaC')
     posteo = models.ForeignKey(Posteo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombrec
+
+   
+

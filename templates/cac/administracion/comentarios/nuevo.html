@@ -1,21 +1,21 @@
 {% extends '../base_administracion.html' %}
 
-{% block titulo %}Nuevo Proyecto{% endblock%}
+{% block titulo %}Nuevo Comentario{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Proyecto</h1>
+<h1 class="mt-4">Comentario</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Nuevo Proyecto</li>
+    <li class="breadcrumb-item active">Nuevo Comentario</li>
 </ol>
 
 
 <div class="card">
-    <div class="card-header">Creacion de proyectos</div>
+    <div class="card-header">Creacion de comentarios</div>
     <div class="card-body">
         <form action="" method="post" enctype="multipart/form-data">
             {% csrf_token %}
-            {% include 'cac/administracion/proyectos/form.html' %}
+            {% include 'cac/administracion/comentarios/form.html' %}
         </form>
     </div>
 </div>

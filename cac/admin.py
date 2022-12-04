@@ -1,5 +1,5 @@
 from django.contrib import admin
-from cac.models import Posteo, Usuario ,Categoria, Proyecto
+from cac.models import Posteo, Usuario ,Categoria, Proyecto, Comentario
 from django.contrib.auth.models import User, Group
 from django.contrib.auth.admin import UserAdmin, GroupAdmin
 
@@ -28,4 +28,5 @@ admin.site.register(Posteo)
 admin.site.register(Usuario)
 admin.site.register(Categoria)
 admin.site.register(Proyecto)
+admin.site.register(Comentario)
 #mi_admin.register(Categoria, CategoriaAdmin)

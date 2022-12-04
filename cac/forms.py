@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ValidationError
-from .models import Categoria, Usuario, Posteo, Proyecto
+from .models import Categoria, Usuario, Posteo, Proyecto, Comentario
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -169,27 +169,26 @@ class RegistrarUsuarioForm(UserCreationForm):
     class Meta:
         model = User
         fields = ['username', 'password1', 'password2']
-'''
 
 
-class ComentariosForm(forms.Form):
+
+class ComentarioForm(forms.ModelForm):
     class Meta:
-    model=Comentarios
-    fields= ['nombre', 'fecha_ingreso', 'descripcion']
+      model=Comentario
+      fields= ['nombrec', 'fechac', 'comentarios','posteo']
 
-    nombre=forms.CharField(
-        label='Nombre', 
+    nombrec=forms.CharField(
+        label='Nombrec', 
         widget=forms.TextInput(attrs={'class':'form-control'})
     )
-    fecha_inicio=forms.DateField(
+    fechac=forms.DateField(
         label='Fecha Ingreso', 
-        widget=forms.DateInput(attrs={'class':'form-control','type':'date'})
+        widget=forms.DateInput(attrs={'class':'form-control','type':'date','value':datetime.today().strftime('%Y-%m-%d')})
     )
-    descripcion = forms.CharField(
-        widget=forms.Textarea(attrs={'rows': 5,'class':'form-control'})
+    comentarios = forms.CharField(
+        widget=forms.TextInput(attrs={'class':'form-control'})
 
-
-'''
+    )
 
 
 

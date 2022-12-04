@@ -32,6 +32,11 @@ urlpatterns = [
     path('administracion/proyectos/editar/<int:id_proyecto>', views.proyectos_editar,name='proyectos_editar'),
     path('administracion/proyectos/eliminar/<int:id_proyecto>', views.proyectos_eliminar,name='proyectos_eliminar'),
 
+    path('administracion/comentarios', views.comentarios_index,name='comentarios_index'),
+    path('administracion/comentarios/nuevo/', views.comentarios_nuevo,name='comentarios_nuevo'),
+    path('administracion/comentarios/editar/<int:id_comentario>', views.comentarios_editar,name='comentarios_editar'),
+    path('administracion/comentarios/eliminar/<int:id_comentario>', views.comentarios_eliminar,name='comentarios_eliminar'),
+
     
     path('cuentas/registrarse', views.usuarios_index, name='registrarse'),
 

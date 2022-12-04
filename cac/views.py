@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from django.template import loader
-from cac.forms import ContactoForm, PosteoForm,CategoriaForm,CategoriaFormValidado, UsuarioForm,RegistrarUsuarioForm, ProyectoForm
-from cac.models import Categoria, Posteo, Usuario, Proyecto
+from cac.forms import ContactoForm, PosteoForm,CategoriaForm,CategoriaFormValidado, UsuarioForm,RegistrarUsuarioForm, ProyectoForm, ComentarioForm
+from cac.models import Categoria, Posteo, Usuario, Proyecto, Comentario
 
 from django.contrib import messages
 from django.views.generic import ListView
@@ -267,6 +267,44 @@ def proyectos_eliminar(request,id_proyecto):
     messages.success(request,'Se ha eliminado el usuario correctamente')          
     proyecto.delete()
     return redirect('proyectos_index')
+
+@login_required(login_url=settings.LOGIN_URL)
+def comentarios_index(request):
+    comentario = Comentario.objects.all()
+    return render(request,'cac/administracion/comentarios/index.html',{'proyectos':comentario})
+
+def comentarios_nuevo(request):
+    #forma de resumida de instanciar un formulario basado en model con los
+    #datos recibidos por POST si la petición es por POST o bien vacio(None)
+    #Si la petición es por GET
+    formulario = ComentarioForm(request.POST or None,request.FILES or None)
+    if formulario.is_valid():
+        formulario.save()
+        messages.success(request,'Se ha creado el usuario correctamente')          
+        return redirect('comentarios_index')
+    return render(request,'cac/administracion/comentarios/nuevo.html',{'formulario':formulario})
+
+def comentarios_editar(request,id_comentario):
+    try:
+        comentario = Comentario.objects.get(pk=id_comentario)
+    except Comentario.DoesNotExist:
+        return render(request,'cac/administracion/404_admin.html')
+    formulario = ComentarioForm(request.POST or None,request.FILES or None,instance=comentario)
+    if formulario.is_valid():
+        formulario.save()
+        messages.success(request,'Se ha editado el usuario correctamente')          
+        return redirect('comentarios_index')
+    return render(request,'cac/administracion/comentarios/editar.html',{'formulario':formulario})
+
+def comentarios_eliminar(request,id_comentario):
+    try:
+        comentario = Comentario.objects.get(pk=id_comentario)
+    except Comentario.DoesNotExist:
+        return render(request,'cac/administracion/404_admin.html')
+    messages.success(request,'Se ha eliminado el usuario correctamente')          
+    comentario.delete()
+    return redirect('comentarios_index')
+    
     
 
 class CategoriaListView(ListView):
