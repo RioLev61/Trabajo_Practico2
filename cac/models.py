@@ -60,13 +60,13 @@ class Posteo(models.Model):
         self.imagenpos.storage.delete(self.imagenpos.name) #borrado fisico
         super().delete()
 
-class Proyectos(models.Model):
+class Proyecto(models.Model):
     nombrep = models.CharField(max_length=50,verbose_name='NombreP')
     imagenp = models.ImageField(upload_to='#',verbose_name='ImagenP')
     website = models.URLField()
 
     def __str__(self):
-        return f"{self.username} - {self.nombre} {self.apellido}"
+        return self.nombrep
     
     def soft_delete(self):
         self.baja=True
@@ -79,11 +79,11 @@ class Proyectos(models.Model):
    
 
 
-class Comentarios(models.Model):
+class Comentario(models.Model):
     nombrec = models.CharField(max_length=50,verbose_name='NombreC')
     comentarios = models.CharField(max_length=250,verbose_name='Comentarios')
     fechac = models.DateField(auto_now=True,verbose_name='FechaC')
-    posteoc = models.ForeignKey(Posteo, on_delete=models.CASCADE)
+    posteo = models.ForeignKey(Posteo, on_delete=models.CASCADE)
 
     def __str__(self):
         return self.nombrec

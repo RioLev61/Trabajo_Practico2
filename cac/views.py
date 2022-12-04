@@ -6,8 +6,8 @@ from django.shortcuts import render, redirect
 from django.urls import reverse
 
 from django.template import loader
-from cac.forms import ContactoForm, PosteoForm,CategoriaForm,CategoriaFormValidado, UsuarioForm,RegistrarUsuarioForm
-from cac.models import Categoria, Posteo, Usuario
+from cac.forms import ContactoForm, PosteoForm,CategoriaForm,CategoriaFormValidado, UsuarioForm,RegistrarUsuarioForm, ProyectoForm
+from cac.models import Categoria, Posteo, Usuario, Proyecto
 
 from django.contrib import messages
 from django.views.generic import ListView
@@ -157,7 +157,7 @@ def categorias_eliminar(request,id_categoria):
     categoria.soft_delete()
     return redirect('categorias_index')
 
-
+@login_required(login_url=settings.LOGIN_URL)
 def posteos_index(request):
     posteo = Posteo.objects.all()
     return render(request,'cac/administracion/posteos/index.html',{'posteos':posteo})
@@ -194,7 +194,7 @@ def posteos_eliminar(request,id_posteo):
     posteo.delete()
     return redirect('posteos_index')
 
-
+@login_required(login_url=settings.LOGIN_URL)
 def usuarios_index(request):
     usuario = Usuario.objects.all()
     return render(request,'cac/administracion/usuarios/index.html',{'usuarios':usuario})
@@ -210,9 +210,9 @@ def usuarios_nuevo(request):
         return redirect('usuarios_index')
     return render(request,'cac/administracion/usuarios/nuevo.html',{'formulario':formulario})
 
-def usuarios_editar(request,id_usuarios):
+def usuarios_editar(request,id_usuario):
     try:
-        usuario = Usuario.objects.get(pk=id_usuarios)
+        usuario = Usuario.objects.get(pk=id_usuario)
     except Usuario.DoesNotExist:
         return render(request,'cac/administracion/404_admin.html')
     formulario = UsuarioForm(request.POST or None,request.FILES or None,instance=usuario)
@@ -222,14 +222,51 @@ def usuarios_editar(request,id_usuarios):
         return redirect('usuarios_index')
     return render(request,'cac/administracion/usuarios/editar.html',{'formulario':formulario})
 
-def usuarios_eliminar(request,id_usuarios):
+def usuarios_eliminar(request,id_usuario):
     try:
-        usuario = Usuario.objects.get(pk=id_usuarios)
+        usuario = Usuario.objects.get(pk=id_usuario)
     except Usuario.DoesNotExist:
         return render(request,'cac/administracion/404_admin.html')
     messages.success(request,'Se ha eliminado el usuario correctamente')          
     usuario.delete()
     return redirect('usuarios_index')
+
+@login_required(login_url=settings.LOGIN_URL)
+def proyectos_index(request):
+    proyecto = Proyecto.objects.all()
+    return render(request,'cac/administracion/proyectos/index.html',{'proyectos':proyecto})
+
+def proyectos_nuevo(request):
+    #forma de resumida de instanciar un formulario basado en model con los
+    #datos recibidos por POST si la petición es por POST o bien vacio(None)
+    #Si la petición es por GET
+    formulario = ProyectoForm(request.POST or None,request.FILES or None)
+    if formulario.is_valid():
+        formulario.save()
+        messages.success(request,'Se ha creado el usuario correctamente')          
+        return redirect('proyectos_index')
+    return render(request,'cac/administracion/proyectos/nuevo.html',{'formulario':formulario})
+
+def proyectos_editar(request,id_proyecto):
+    try:
+        proyecto = Proyecto.objects.get(pk=id_proyecto)
+    except Proyecto.DoesNotExist:
+        return render(request,'cac/administracion/404_admin.html')
+    formulario = ProyectoForm(request.POST or None,request.FILES or None,instance=proyecto)
+    if formulario.is_valid():
+        formulario.save()
+        messages.success(request,'Se ha editado el usuario correctamente')          
+        return redirect('proyectos_index')
+    return render(request,'cac/administracion/proyectos/editar.html',{'formulario':formulario})
+
+def proyectos_eliminar(request,id_proyecto):
+    try:
+        proyecto = Proyecto.objects.get(pk=id_proyecto)
+    except Proyecto.DoesNotExist:
+        return render(request,'cac/administracion/404_admin.html')
+    messages.success(request,'Se ha eliminado el usuario correctamente')          
+    proyecto.delete()
+    return redirect('proyectos_index')
     
 
 class CategoriaListView(ListView):

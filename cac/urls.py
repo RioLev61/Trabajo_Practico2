@@ -27,6 +27,11 @@ urlpatterns = [
     path('administracion/usuarios/editar/<int:id_usuarios>', views.usuarios_editar,name='usuarios_editar'),
     path('administracion/usuarios/eliminar/<int:id_usuarios>', views.usuarios_eliminar,name='usuarios_eliminar'),
 
+    path('administracion/proyectos', views.proyectos_index,name='proyectos_index'),
+    path('administracion/proyectos/nuevo/', views.proyectos_nuevo,name='proyectos_nuevo'),
+    path('administracion/proyectos/editar/<int:id_proyecto>', views.proyectos_editar,name='proyectos_editar'),
+    path('administracion/proyectos/eliminar/<int:id_proyecto>', views.proyectos_eliminar,name='proyectos_eliminar'),
+
     
     path('cuentas/registrarse', views.usuarios_index, name='registrarse'),
 

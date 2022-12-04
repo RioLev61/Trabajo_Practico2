@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ValidationError
-from .models import Categoria, Usuario, Posteo, Comentarios
+from .models import Categoria, Usuario, Posteo, Proyecto
 
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth.models import User
@@ -143,6 +143,26 @@ class UsuarioForm(forms.ModelForm):
             'username': forms.TextInput(attrs={'class':'form-control'}),
             
         }
+
+class ProyectoForm(forms.ModelForm):
+
+    class Meta:
+        model=Proyecto
+        fields=['nombrep','imagenp','website']
+
+    nombrep=forms.CharField(
+        label='Nombre', 
+        widget=forms.TextInput(attrs={'class':'form-control'})
+    )
+
+    imagenp = forms.ImageField(
+        widget=forms.FileInput(attrs={'class':'form-control'})
+    )
+
+    website=forms.URLField(
+        label='Website', 
+        widget=forms.URLInput(attrs={'class':'form-control'})
+    )
 
 
 class RegistrarUsuarioForm(UserCreationForm):

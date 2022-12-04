@@ -1,12 +1,12 @@
 {% extends '../base_administracion.html' %}
 
-{% block titulo %}Categorias cursos{% endblock%}
+{% block titulo %}Proyectos{% endblock%}
 
 {% block contenido %}
-<h1 class="mt-4">Categorias </h1>
+<h1 class="mt-4">Proyectos</h1>
 <ol class="breadcrumb mb-4">
     <li class="breadcrumb-item"><a href="{% url 'inicio_administracion' %}">Administracion</a></li>
-    <li class="breadcrumb-item active">Categorias</li>
+    <li class="breadcrumb-item active">Proyectos</li>
 </ol>
 
 <div class="card">
@@ -18,15 +18,16 @@
             <div class="row">
                 <div class="col-3">
                     <div class="md-form mb-0">
-                        <label for="name" class="">Nombre</label>
+                        <label for="name" class="">Titulo</label>
                         
                         <input type="text" 
-                              id="nombre" 
-                              name="nombre"
-                              placeholder="Ingrese el nombre" 
+                              id="nombrep" 
+                              name="nombrep"
+                              placeholder="Ingrese el nombre del proyecto" 
                               class="form-control">
                     </div>
                 </div>
+            
                 <div class="col-3 ">
                     <button class="btn btn-primary mt-4">Buscar</button>
                 </div>
@@ -37,31 +38,37 @@
 <br>
 <div class="card">
     <div class="card-body">
-        <a name="" id="" class="btn btn-success" href="{% url 'categorias_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
+        <a name="" id="" class="btn btn-success" href="{% url 'proyectos_nuevo' %}" role="button"> <i class="fa-solid fa-circle-plus"></i> Nuevo</a>
         <!-- bs5-table-defaul -->
         <table class="table">
             <thead>
                 <tr>
                     <th>Id</th>
-                    <th>Nombre</th>
+                    <th>Proyecto</th>
+                    <th>Website</th>
+                    <th>Imagen</th>
                     <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
-                {% for categoria in lista_categorias %}
+                {% for proyecto in proyectos %}
                     <tr>
-                        <td>{{categoria.id}}</td>
-                        <td>{{categoria.nombre}}</td>
+                        <td>{{proyecto.id}}</td>
+                        <td>{{proyecto.nombrep}}</td>
+                        <td>{{proyecto.website}}</td>
                         <td>
-                            <a href="{% url 'categorias_editar' categoria.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
-                            <a href="{% url 'categorias_eliminar' categoria.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
+                            <img src="{{proyectos.imagenp.url}}" alt="{{proyectos.nombrep}}" width="20%">
+                        </td>
+                    
+                        <td>
+                            <a href="{% url 'proyectos_editar' proyecto.id %}" title="Editar" class="btn btn-warning"><i class="fas fa-pencil"></i></a>
+                            <a href="{% url 'proyectos_eliminar' proyecto.id %}" title="Eliminar" class="btn btn-danger"><i class="fas fa-trash"></i></a>
                         </td>
                     </tr>
                 {% endfor %}
-
             </tbody>
         </table>
-        {% comment %} <div class="row">
+        <div class="row">
             <div class="col-12">
                 <nav aria-label="Page navigation example">
                     <ul class="pagination">
@@ -73,7 +80,7 @@
                     </ul>
                   </nav>
             </div>
-        </div> {% endcomment %}
+        </div>
     </div>
     <div class="card-footer text-muted">
         Footer
