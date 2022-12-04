@@ -50,7 +50,6 @@ class Posteo(models.Model):
     resumen = models.CharField(max_length=250,verbose_name='Resumen')
     articulo = models.TextField(verbose_name='Articulo')
     imagenpos = models.ImageField(upload_to='#',verbose_name='ImagenPos')
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
     fecha = models.DateField(auto_now=True,verbose_name='Fecha')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
