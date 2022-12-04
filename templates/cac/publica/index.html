@@ -1,0 +1,97 @@
+{% extends './base.html' %}
+
+{% block titulo %}Página de inicio{% endblock titulo %}
+
+
+{% block contenido %}
+
+<section id="home">
+     <div class="container">
+          <h1>Magnet Studio</h1>
+          <div class="row">
+
+               <div class="col-md-12 col-sm-12">
+                    <h2>El estudio web y móvil creativo. Somos diseñadores jóvenes y enfocados en identidad de marca,
+                         desarrollo web y marketing social.</h2>
+                    <hr>
+               </div>
+
+          </div>
+     </div>
+</section>
+
+<section id="portfolio ">
+     <div class="container">         
+               {% if proyectos|length > 0 %}
+               {% for proyecto in proyectos %}
+               <div class="row">
+                    
+                    <div class="col-md-4 col-sm-6">
+                         <div class="single-project.html">
+                             
+                                   <div class="portfolio-thumb">
+                                        <img src='{{proyecto.imagen}}'' class="img-responsive"
+                                             alt="Portfolio">
+                                        <div class="portfolio-overlay">
+                                             <div class="portfolio-item">
+                                                  <a href="{{proyecto.website}}">
+                                                       <h3>{{proyecto.nombre}}</h3>
+                                                  </a>
+                                                  <small>{{proyecto.categoria}}</small>
+                                             </div>
+                                        </div>
+                                   </div>
+
+                              </a>
+                         </div>
+                    </div>
+                    {% endfor %}
+               </div>
+               {% else %}
+               <div class="row justify-content-center">
+                    <div class="col-4 text-center">
+                         <div class="alert alert-warning" role="alert">
+                              <p>No hay proyectos disponibles</p>
+                         </div>
+                    </div>
+
+                    {% endif %}
+               </div>
+
+               <div class="col-md-12 col-sm-12 text-center">
+                    <h3>Si estas interesado podes contactarte <a href="{% url 'contacto' %}">Pagina de Contacto</a></h3>
+               </div>
+
+          
+     </div>
+</section>
+
+{% endblock contenido %}
+
+
+
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/custom.js"></script>
+<!--   <h1>{{ titulo_nombre }}</h1>
+    <p>{{ parametros }}</p>    
+    <p>{{ hoy|date:"Y-m-d H:i:s"}}</p>
+    
+    {% if cursos|length > 0 %}
+        <ul>
+            {% for curso in cursos %}
+                <li>
+                    {{ curso.nombre }} - {{ curso.categoria }}
+                    <p>{{ curso.descripcion }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+    {% else %}
+        <p>No hay cursos disponibles</p>
+    {% endif %}-->
+
+
+
+</body>
+
+</html>
