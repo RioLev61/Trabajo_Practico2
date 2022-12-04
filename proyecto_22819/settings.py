@@ -78,7 +78,7 @@ WSGI_APPLICATION = 'proyecto_22819.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'cac_tp1', 
+        'NAME': 'cac_tp_2', 
         'USER': 'postgres', 
         'PASSWORD': 'nilu0205',
         'HOST': '127.0.0.1', 

@@ -50,7 +50,7 @@ class Posteo(models.Model):
     resumen = models.CharField(max_length=250,verbose_name='Resumen')
     articulo = models.TextField(verbose_name='Articulo')
     imagenpos = models.ImageField(upload_to='#',verbose_name='ImagenPos')
-    fecha = models.DateField(auto_now=True,verbose_name='Fecha')
+    fecha = models.DateField(verbose_name='Fecha')
     categoria = models.ForeignKey(Categoria, on_delete=models.CASCADE)
 
     def __str__(self):
@@ -64,12 +64,26 @@ class Proyectos(models.Model):
     nombrep = models.CharField(max_length=50,verbose_name='NombreP')
     imagenp = models.ImageField(upload_to='#',verbose_name='ImagenP')
     website = models.URLField()
-    usuario = models.ForeignKey(Usuario, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return f"{self.username} - {self.nombre} {self.apellido}"
+    
+    def soft_delete(self):
+        self.baja=True
+        super().save()
+    
+    def restore(self):
+        self.baja=False
+        super().save()
+    
+   
 
 
 class Comentarios(models.Model):
     nombrec = models.CharField(max_length=50,verbose_name='NombreC')
     comentarios = models.CharField(max_length=250,verbose_name='Comentarios')
-    email = models.EmailField(max_length=150,verbose_name='email')
     fechac = models.DateField(auto_now=True,verbose_name='FechaC')
-    post = models.ForeignKey(Posteo, on_delete=models.CASCADE)
+    posteoc = models.ForeignKey(Posteo, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.nombrec
