@@ -34,9 +34,12 @@
               <p type="text" style="display: inline" class="navbar-brand">Bienvenido\a, {{ user.username }}.</p>
               <a type="text" style="display: inline" href="{% url 'password_change' %}" class="navbar-brand"></i>Cambiar password</a>
               <a type="button" href="{% url 'logout' %}" class="navbar-brand">Cerrar Sesión</a>
+          {% if perms.cac %}
+                <a type="button" href="{% url 'inicio_administracion' %}" class="navbar-brand">Administración</a></li>
+                    {% endif %}
           {% else %}
-              <a type="button" href="{% url 'login' %}" class="navbar-brand">Iniciar Sesión</a>
-              <a type="button" href="{% url 'registrarse' %}" class="navbar-brand">Registrarse</a>
+               <a type="button" href="{% url 'login' %}" class="navbar-brand">Iniciar Sesión</a>
+               <a type="button" href="{% url 'registrarse' %}" class="navbar-brand">Registrarse</a>
           {% endif %}  
          </div>
          <div class="collapse navbar-collapse">
