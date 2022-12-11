@@ -21,5 +21,6 @@ from django.urls.conf import include
 urlpatterns = [
     #path('cacadmin/', mi_admin.urls),
     path('admin/', admin.site.urls),
+    path('cac_api/',include('api_cac.urls')),
     path('',include('cac.urls'))
 ]

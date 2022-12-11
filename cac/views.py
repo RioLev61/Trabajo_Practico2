@@ -19,6 +19,7 @@ from  django.contrib.auth import authenticate, login
 from django.contrib.auth.forms import AuthenticationForm
 
 from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import login_required, permission_required
 
 
 def index(request):
@@ -119,11 +120,13 @@ def index_administracion(request):
     variable = 'test_variable'
     return render(request,'cac/administracion/index_administracion.html',{'variable':variable})
 
+@login_required(login_url=settings.LOGIN_URL)
 def categorias_index(request):
     #queryset
     categorias = Categoria.objects.filter(baja=False)
     return render(request,'cac/administracion/categorias/index.html',{'categorias':categorias})
 
+@login_required(login_url=settings.LOGIN_URL)
 def categorias_nuevo(request):
     if(request.method=='POST'):
         formulario = CategoriaFormValidado(request.POST)
@@ -134,6 +137,7 @@ def categorias_nuevo(request):
         formulario = CategoriaFormValidado()
     return render(request,'cac/administracion/categorias/nuevo.html',{'formulario':formulario})
 
+@login_required(login_url=settings.LOGIN_URL)
 def categorias_editar(request,id_categoria):
     try:
         categoria = Categoria.objects.get(pk=id_categoria)
@@ -148,6 +152,9 @@ def categorias_editar(request,id_categoria):
     else:
         formulario = CategoriaFormValidado(instance=categoria)
     return render(request,'cac/administracion/categorias/editar.html',{'formulario':formulario})
+
+@login_required(login_url=settings.LOGIN_URL)
+@permission_required('cac.view_categoria', login_url=settings.LOGIN_URL)
 
 def categorias_eliminar(request,id_categoria):
     try:
@@ -329,17 +336,7 @@ class CategoriaView(View):
             return redirect('categorias_index')
         return render(request,self.template_name,{'formulario':form})
 
-    def cac_registrarse(request):
-        if request.method == 'POST':
-            form = RegistrarUsuarioForm(request.POST)
-            if form.is_valid():
-                form.save()
-            messages.success(
-                request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
-            return redirect('login')
-        else:
-            form = RegistrarUsuarioForm()
-        return render(request, 'cac/publica/registrarse.html', {'form': form})
+    
 
 
     def cac_login(request):
@@ -358,6 +355,18 @@ class CategoriaView(View):
                    return redirect(nxt)
         else:    
             form = AuthenticationForm()  
+        return render(request, 'cac/publica/registrarse.html', {'form': form})
+
+    def cac_registrarse(request):
+        if request.method == 'POST':
+            form = RegistrarUsuarioForm(request.POST)
+            if form.is_valid():
+                form.save()
+            messages.success(
+                request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
+            return redirect('login')
+        else:
+            form = RegistrarUsuarioForm()
         return render(request, 'cac/publica/registrarse.html', {'form': form})
 
     
