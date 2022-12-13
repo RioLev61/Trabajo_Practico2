@@ -1,5 +1,5 @@
 from rest_framework import serializers
-from cac.models import Proyecto, Posteo
+from cac.models import Proyecto, Usuario
 
 
 class ProyectoSerializer(serializers.ModelSerializer):
@@ -8,9 +8,9 @@ class ProyectoSerializer(serializers.ModelSerializer):
         fields= ['id','nombrep','imagenp', 'website']
 
 
-class PosteoSerializer(serializers.ModelSerializer):
+class UsuarioSerializer(serializers.ModelSerializer):
     class Meta:
-        model= Posteo
-        fields= ['id','titulo','resumen', 'articulo','imagenpos','fecha']
+        model= Usuario
+        fields= ['id','nombre','apellido', 'username','email','password']
 
 

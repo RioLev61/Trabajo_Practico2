@@ -1,6 +1,6 @@
 from rest_framework import viewsets
 from rest_framework import permissions
-from cac.models import Proyecto, Posteo
+from cac.models import Proyecto, Usuario
 from api_cac import serializers
 
 
@@ -12,8 +12,8 @@ class ProyectoViewSet(viewsets.ModelViewSet):
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
 
-class PosteoViewSet(viewsets.ModelViewSet):
-    queryset = Posteo.objects.all().order_by('id')
-    serializer_class = serializers.PosteoSerializer
+class UsuarioViewSet(viewsets.ModelViewSet):
+    queryset = Usuario.objects.all().order_by('id')
+    serializer_class = serializers.UsuarioSerializer
     permission_classes = [permissions.IsAuthenticatedOrReadOnly]
 
