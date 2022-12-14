@@ -339,40 +339,37 @@ class CategoriaView(View):
     
 
 
-    def cac_login(request):
-        if request.method == 'POST':
-        # AuthenticationForm_can_also_be_used__
-           username = request.POST['username']
-           password = request.POST['password']
-           user = authenticate(request, username=username, password=password)
-           if user is not None:
-                form = login(request, user)
-                nxt = request.GET.get("next",None)
-                messages.success(request, f' Bienvenido/a {username} !!')
-                if nxt is None:
-                   return redirect('inicio')
-                else:
-                   return redirect(nxt)
-        else:    
-            form = AuthenticationForm()  
-        return render(request, 'cac/publica/registrarse.html', {'form': form})
+def cac_login(request):
+    if request.method == 'POST':
+    # AuthenticationForm_can_also_be_used__
+        username = request.POST['username']
+        password = request.POST['password']
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            form = login(request, user)
+            nxt = request.GET.get("next",None)
+            messages.success(request, f' Bienvenido/a {username} !!')
+            if nxt is None:
+                return redirect('inicio')
+            else:
+                return redirect(nxt)
+    else:    
+        form = AuthenticationForm()  
+    return render(request, 'cac/publica/registrarse.html', {'form': form})
 
-    def cac_registrarse(request):
-        if request.method == 'POST':
-            form = RegistrarUsuarioForm(request.POST)
-            if form.is_valid():
-                form.save()
-            messages.success(
-                request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
-            return redirect('login')
-        else:
-            form = RegistrarUsuarioForm()
-        return render(request, 'cac/publica/registrarse.html', {'form': form})
+def cac_registrarse(request):
+    if request.method == 'POST':
+        form = RegistrarUsuarioForm(request.POST)
+        if form.is_valid():
+            form.save()
+        messages.success(
+            request, f'Tu cuenta fue creada con éxito! Ya te podes loguear en el sistema.')
+        return redirect('login')
+    else:
+        form = RegistrarUsuarioForm()
+    return render(request, 'cac/publica/registrarse.html', {'form': form})
 
     
-  
-
-
 
 # Create your views here.
 def hola_mundo(request):

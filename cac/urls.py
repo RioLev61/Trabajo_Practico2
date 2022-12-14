@@ -38,8 +38,8 @@ urlpatterns = [
     path('administracion/comentarios/eliminar/<int:id_comentario>', views.comentarios_eliminar,name='comentarios_eliminar'),
 
     
-    path('cuenta/registrarse/', views.index, name='registrarse'),
-   # path('cuenta/registrarse/', views.cac_registrarse, name='registrarse'),
+    # path('cuenta/registrarse/', views.index, name='registrarse'),
+   path('cuenta/registrarse/', views.cac_registrarse, name='registrarse'),
 
     path('account/login/',auth_views.LoginView.as_view(template_name='cac/publica/login.html')),
     # path('account/logout/',
