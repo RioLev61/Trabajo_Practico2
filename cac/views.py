@@ -101,6 +101,10 @@ def blog(request):
     context = {'titulo': 'Blog'}
     return HttpResponse(template.render(context, request))
 
+def blog2(request):
+    posteo = Posteo.objects.all()
+    return render(request,'cac/publica/blog2.html',{'posteos':posteo})
+
 def contacto(request):
     #template = loader.get_template('cac/publica/contacto.html')
     #context = {'titulo': 'Contacto'}

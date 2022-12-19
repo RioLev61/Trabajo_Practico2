@@ -1,0 +1,30 @@
+{% extends './base.html' %}
+    
+{% block titulo %}Blog2{% endblock titulo %}
+
+{% block contenido %}
+
+<section id="blog">
+    <div class="container">
+         
+
+        
+            {% for posteo in posteos %}
+    <div class="post">
+        <img src={{posteo.imagenpos.url}} width="200px">
+        <h2><a>{{ posteo.titulo }}</a></h2>
+        <p>{{ posteo.resumen}}</p>
+        <p>{{ posteo.articulo}}</p>
+        
+    </div>
+    
+{% endfor %}
+           
+            
+
+
+    
+</section>
+
+
+{% endblock contenido %}
